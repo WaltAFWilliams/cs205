@@ -1,0 +1,18 @@
+Count:   1000000
+Threads: 1
+Elapsed: 0.0379946 seconds
+Count:   1000000
+Threads: 2
+Elapsed: 0.0836103 seconds
+Count:   1000000
+Threads: 4
+Elapsed: 0.117984 seconds
+Count:   1000000
+Threads: 8
+Elapsed: 0.158778 seconds
+Count:   1000000
+Threads: 16
+Elapsed: 0.186888 seconds
+Count:   1000000
+Threads: 28
+Elapsed: 0.216989 seconds
