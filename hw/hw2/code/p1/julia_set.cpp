@@ -2,7 +2,7 @@
 // Description: Code for Julia Set problem CS205
 // Copyright 2023 Harvard University. All Rights Reserved.
 #include "helper.h"
-
+#include <cmath>
 #include <chrono>
 #include <omp.h>
 
@@ -29,11 +29,19 @@ void julia_set(void)
             // Compute `w = z_0 = x + i y` for the given pixel (j, i).
             double x = 1.3 * (j - .5 * WIDTH) / HEIGHT;
             double y = 1.3 * i / HEIGHT; // Only one half.
-
             // Compute the count iterations for this pixel.
             int count = 0;
             // TODO A: implement the iteration rule here
+	    for (count=0; count<1000; ++count){
+		znsquared_x = x*x - y*y;
+		znsquared_y = 2*x*y;
+		x += znsquared_x;
+		y += znsquared_y;
+		zn_norm = sqrt(x*x + y*y);
+		if (zn_norm > 2){
 
+		}
+	    }
             image[i][j] = count;
         }
     }

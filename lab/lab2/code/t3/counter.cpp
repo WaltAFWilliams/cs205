@@ -6,7 +6,10 @@ class Counter
 public:
     Counter() : count_(0) {}
 
-    void increment() { ++count_; }
+    void increment() {
+#pragma omp atomic
+	++count_; 
+}
     unsigned int get_count() const { return count_; }
 
 private:

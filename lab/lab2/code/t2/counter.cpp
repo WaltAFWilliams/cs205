@@ -32,6 +32,7 @@ int main(void)
 
 #pragma omp parallel for
     for (int i = 0; i < 1000000; ++i) {
+	# pragma omp critical
         counter.increment(); // perform task in critical section
     }
 
