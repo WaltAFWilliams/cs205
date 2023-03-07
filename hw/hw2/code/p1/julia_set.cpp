@@ -25,12 +25,13 @@ void julia_set(void)
 
     // TODO A: parallelize this code
 #pragma omp parallel for collapse(2) schedule(static, 32)
+
     for (int i = 0; i < HEIGHT; ++i) {
         for (int j = 0; j < WIDTH; ++j) {
             // Compute `w = z_0 = x + i y` for the given pixel (j, i).
             double x = 1.3 * (j - .5 * WIDTH) / HEIGHT;
             double y = 1.3 * i / HEIGHT; // Only one half.
-
+            
             // Compute the count iterations for this pixel.
             int count = 0;
             // TODO A: implement the iteration rule here
@@ -63,6 +64,8 @@ void julia_set(void)
 std::vector<int> compute_histogram(void)
 {
     std::vector<int> result(MAX_ITERATIONS + 1);
+
+    // TODO D: Compute the histogram of iteration count.
     //         Parallelize your code with OpenMP.
     //
     //         To report your result, you can run `make plot`

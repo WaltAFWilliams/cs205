@@ -5,6 +5,7 @@
 # TODO A: make sure you compile with support for OpenMP
 CXXFLAGS = -O3 -Wall -Wextra -std=c++11 -march=native -fopenmp
 
+
 .PHONY: clean run plot
 
 julia_set: julia_set.cpp helper.h
@@ -15,7 +16,6 @@ clean:
 
 run: julia_set
 	OMP_NUM_THREADS=1 ./julia_set
-
 
 plot:
 	python3 plot.py
