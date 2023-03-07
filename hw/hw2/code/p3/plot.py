@@ -19,15 +19,17 @@ yB = np.minimum(B_peak_mem_bw * x, B_peak_flops)  # processor B
 
 # Create the roofline graph
 fig, ax = plt.subplots()
-ax.loglog(x, yA, 'b-', label='Processor A')
-ax.loglog(x, yB, 'r-', label='Processor B')
+ax.loglog(x, yA, 'b', label='Processor A')
+ax.loglog(x, yB, 'orange', label='Processor B')
 ax.set_xlabel('Operational Intensity (FLOPs/Byte)')
 ax.set_ylabel('Operational Performance (GFLOPs/s)')
 ax.set_xlim(x[0], x[-1])
+ax.grid()
 ax.set_ylim(1e-1, 1e4)
 
 ax.grid(True)
 # Add legend to the graph
 ax.legend()
 
-plt.savefig("roofline.png")
+#plt.savefig("roofline.png")
+plt.show()
