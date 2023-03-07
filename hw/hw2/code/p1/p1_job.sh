@@ -10,19 +10,45 @@
 #SBATCH --mail-user=<glee@g.harvard.edu>
 #SBATCH --mail-type=END
 
-module purge
+module purge 
 module load gcc/12.1.0-fasrc01
 module load intel/21.2.0-fasrc01
 module load openmpi/4.1.3-fasrc01
 
+make clean 
+make
 
-# Compile the code
-make clean
-make 
-
-# Run the experiments for different numbers of threads
 for p in 1 2 4 8 16 32; do
-  export OMP_NUM_THREADS=$p
-  echo "Running with $p threads" >> p1_results.txt
-  ./julia_set >> p1_results.txt
-done
+	export OMP_NUM_THREADS=$p
+	echo "Number of threads: $p" >> p1_results.txt
+	./julia_set >> p1_results.txt
+done 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
