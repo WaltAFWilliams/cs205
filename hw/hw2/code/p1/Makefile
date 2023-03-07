@@ -3,7 +3,8 @@
 # Copyright 2023 Harvard University. All Rights Reserved.
 
 # TODO A: make sure you compile with support for OpenMP
-CXXFLAGS = -O3 -Wall -Wextra -std=c++11 -march=native
+CXXFLAGS = -O3 -Wall -Wextra -std=c++11 -march=native -fopenmp
+
 
 .PHONY: clean run plot
 

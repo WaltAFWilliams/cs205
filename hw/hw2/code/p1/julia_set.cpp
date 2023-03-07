@@ -24,24 +24,29 @@ void julia_set(void)
     auto t0 = std::chrono::steady_clock::now();
 
     // TODO A: parallelize this code
+#pragma omp parallel for collapse(2) schedule(static, 32)
+
     for (int i = 0; i < HEIGHT; ++i) {
         for (int j = 0; j < WIDTH; ++j) {
             // Compute `w = z_0 = x + i y` for the given pixel (j, i).
             double x = 1.3 * (j - .5 * WIDTH) / HEIGHT;
             double y = 1.3 * i / HEIGHT; // Only one half.
+            
             // Compute the count iterations for this pixel.
             int count = 0;
             // TODO A: implement the iteration rule here
-	    for (count=0; count<1000; ++count){
-		znsquared_x = x*x - y*y;
-		znsquared_y = 2*x*y;
-		x += znsquared_x;
-		y += znsquared_y;
-		zn_norm = sqrt(x*x + y*y);
-		if (zn_norm > 2){
+            while ((pow(x,2) + pow(y,2)) <= (4) && count < MAX_ITERATIONS)
+            {
+                double prev_x = x;
+                double prev_y = y;
+                
+                x = pow(prev_x,2) -pow(prev_y,2) + cx;
+                y = 2*prev_x*prev_y + cy;
 
-		}
-	    }
+                count++;
+            }
+            
+
             image[i][j] = count;
         }
     }
@@ -65,6 +70,22 @@ std::vector<int> compute_histogram(void)
     //
     //         To report your result, you can run `make plot`
     //         to plot the computed histogram.
+
+#pragma omp parallel
+    {
+        std::vector<int> part_result(MAX_ITERATIONS + 1);
+#pragma omp for
+        for (int i = 0; i < HEIGHT; ++i) {
+            for (int j = 0; j < WIDTH; ++j) {
+                part_result[image[i][j]]++;
+            }
+        }
+        int vec_size = (int) part_result.size();
+#pragma omp critical
+        for (int i = 0; i < vec_size; ++i) {
+            result[i] += part_result[i];
+        }
+    }
 
     return result;
 }
